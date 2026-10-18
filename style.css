@@ -5,8 +5,9 @@
   --mute: #7a746b;
   --line: #e8e1d6;
   --gold: #b79a6a;
+  --grey: #edece9;
   --gold-d: #8f7347;
-  --serif: "Cormorant Garamond", Georgia, serif;
+  --serif: "Libre Franklin, Cormorant Garamond", Georgia, serif;
   --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
   --pad: 6vw;
   --nav: 68px;
@@ -20,7 +21,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--nav)
+  scroll-padding-top: var(--nav);
+  overflow-x: clip;
 }
 
 body {
@@ -34,7 +36,8 @@ body {
 }
 
 a {
-  color: inherit;
+  /* color: inherit; */
+  color: black;
   text-decoration: none
 }
 
@@ -80,6 +83,7 @@ iframe {
 
 /* ---------- navbar ---------- */
 .nav {
+  background: rgba(255, 255, 255, .92);
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
@@ -89,7 +93,7 @@ iframe {
   justify-content: space-between;
   padding: env(safe-area-inset-top, 0) var(--pad) 0;
   color: #fff;
-  transition: background .4s, color .4s, box-shadow .4s
+  /* transition: background .4s, color .4s, box-shadow .4s */
 }
 
 .nav.solid {
@@ -107,7 +111,7 @@ iframe {
 
 .brand b {
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
   letter-spacing: .04em
 }
@@ -134,7 +138,7 @@ iframe {
   border-radius: 50%;
   background: #e5242b;
   box-shadow: 0 0 8px #e5242b;
-  animation: blink 1.2s steps(1) infinite
+  animation: blink 1.0s steps(1) infinite
 }
 
 @keyframes blink {
@@ -183,7 +187,7 @@ iframe {
 }
 
 .nav .cta:hover {
-  background: var(--gold);
+  background: #e5242b;
   border-color: var(--gold);
   color: #fff
 }
@@ -195,7 +199,7 @@ iframe {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  color: inherit;
+  color: #2b2926;
   position: relative
 }
 
@@ -227,7 +231,8 @@ iframe {
 /* ---------- hero ---------- */
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: calc(100svh - var(--nav));
+  margin-top: var(--nav);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -270,12 +275,12 @@ iframe {
 }
 
 .hero h1 {
-  font-size: clamp(50px, 8.5vw, 128px);
+  font-size: clamp(50px, 8.5vw, 100px);
   letter-spacing: -.02em
 }
 
 .hero h1 em {
-  font-weight: 400
+  font-weight: 400;
 }
 
 .hero-p {
@@ -327,6 +332,7 @@ iframe {
   position: absolute;
   z-index: 2;
   left: 50%;
+  color: white;
   bottom: 28px;
   transform: translateX(-50%);
   font-size: 11px;
@@ -347,8 +353,12 @@ iframe {
   margin: 0 8px;
 }
 
+#music-videos {
+  padding: 0;
+}
+
 .sec.alt {
-  background: var(--alt)
+  background: var(--grey)
 }
 
 .sec-h {
@@ -368,7 +378,7 @@ iframe {
 }
 
 .sec-h h2 {
-  font-size: clamp(38px, 5vw, 72px);
+  font-size: clamp(38px, 5vw, 50px);
   letter-spacing: -.02em
 }
 
@@ -394,9 +404,13 @@ iframe {
   margin: 0;
   aspect-ratio: 4/5;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 20px;
   background: linear-gradient(160deg, #e9e1d3, #cfc2ab);
   cursor: crosshair
+}
+
+.photo .rv .l {
+  border-radius: 10%;
 }
 
 .photo img {
@@ -655,7 +669,8 @@ iframe {
   overflow: hidden;
   border-radius: 2px;
   container-type: size;
-  background: linear-gradient(135deg, #e9e1d3, #cfc2ab)
+  filter: grayscale(1);
+  /* background: linear-gradient(135deg, #e9e1d3, #cfc2ab); */
 }
 
 .pic>img {
@@ -679,7 +694,12 @@ iframe {
 }
 
 .tile:hover .pic>img {
-  transform: scale(1.05)
+  transform: scale(1.05);
+  filter: grayscale(0);
+}
+
+.tile:hover .pic {
+  filter: grayscale(0);
 }
 
 .play {
@@ -703,7 +723,7 @@ iframe {
 
 .tile:hover .play {
   opacity: 0;
-  transform: scale(1.5)
+  transform: scale(1.5);
 }
 
 .tile figcaption {
@@ -826,7 +846,7 @@ iframe {
   background: #fff;
   border: 1px solid var(--line);
   padding: clamp(22px, 3vw, 40px);
-  border-radius: 6px
+  border-radius: 6px;
 }
 
 .form label {

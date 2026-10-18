@@ -18,8 +18,8 @@ const VIDEOS = {
     {id:"X5hPRvz_gUM", title:"Kuki & Pinas",  meta:"2023", span:4, h:293},
   ],
   concerts: [
-    {id:"YOUTUBE_ID_6",  title:"Festival opening", meta:"Aftermovie", span:4, h:200, w:500},
-    {id:"YOUTUBE_ID_7",  title:"Club night",       meta:"Live",       span:5, h:300},
+    {id:"YOUTUBE_ID_6",  title:"Festival opening", meta:"2023", span:4, h:200, w:500},
+    {id:"YOUTUBE_ID_7",  title:"Club night",       meta:"2024",       span:5, h:300},
     {id:"YOUTUBE_ID_8",  title:"Acoustic session", meta:"Live",       span:3, h:300},
     {id:"YOUTUBE_ID_9",  title:"Main stage",       meta:"Aftermovie", span:5, h:340},
     {id:"YOUTUBE_ID_10", title:"Support act",      meta:"Live",       span:7, h:340},
@@ -30,14 +30,14 @@ const VIDEOS = {
     {id:"YOUTUBE_ID_10", title:"Support act",      meta:"Live",       span:7, h:340},
   ],
   musicvideos: [
-    {id:"huXEOj1BBoU", title:"Magidom - Állandó Változás",   meta:"Music video", span:2, h: 500},
-    {id:"KivYRftLus0", title:"Magidom - Királydráma", meta:"Music video", span:2, h:300},
-    {id:"8kePefatqBM", title:"Magidom - Van Az a Pénz",  meta:"Music video", span:6, h:300},
-    {id:"TAtm_aNAHqM", title:"Darjeeling - No Idol",   meta:"Music video", span:6, h:500},
-    {id:"IDUgsByn1Ak", title:"Darjeeling - Secret Rooms",   meta:"Music video", span:5, h:250},
-    {id:"xMntfG0gzNA", title:"Darjeeling - Darwinien", meta:"Music video", span:7, h:250},
-    {id:"A-pF38JtAH8", title:"Systemless - Departure",  meta:"Music video", span:5, h:294},
-    {id:"la65Qmse9VY", title:"Magidom - NE LOPJ",   meta:"Music video", span:6, h:805},
+    {id:"huXEOj1BBoU", title:"Állandó Változás",   meta:"Magidom", span:2, h: 500},
+    {id:"KivYRftLus0", title:"Királydráma", meta:"Magidom", span:2, h:300},
+    {id:"8kePefatqBM", title:"Van Az a Pénz",  meta:"Magidom", span:6, h:300},
+    {id:"TAtm_aNAHqM", title:"No Idol",   meta:"Darjeeling", span:6, h:500},
+    {id:"IDUgsByn1Ak", title:"Secret Rooms",   meta:"Darjeeling", span:5, h:250},
+    {id:"xMntfG0gzNA", title:"Darwinien", meta:"Darjeeling", span:7, h:250},
+    {id:"A-pF38JtAH8", title:"Departure",  meta:"Systemless", span:5, h:294},
+    {id:"la65Qmse9VY", title:"MNE LOPJ",   meta:"Magidom", span:6, h:805},
   ],
 };
 
@@ -180,6 +180,12 @@ addEventListener("keydown", e => {
 
 /* ---- scroll animations: fade in when visible, reset when out of view,
         so they replay every time you scroll past ---- */
-const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("in", e.isIntersecting)),
-  {threshold: .15, rootMargin: "0px 0px -6% 0px"});
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) {
+    e.target.classList.add("in");              // scrolling down: animate in
+  } else if (e.boundingClientRect.top > 0) {
+    e.target.classList.remove("in");           // left via the bottom: reset, ready to replay
+  }
+  // left via the top: do nothing, stays visible when you scroll back up
+}), {threshold: .15, rootMargin: "0px 0px -6% 0px"});
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
